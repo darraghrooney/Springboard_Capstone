@@ -152,7 +152,6 @@ class attempt_manager(object):
 		print '...done'
 
 	def Load(self):
-		print 'Loading data...'
 		loader = np.load(self.attempt_filename)
 		self.game_counts =  list(loader['game_counts'])
 		self.home_indices =  list(loader['home_indices'])
