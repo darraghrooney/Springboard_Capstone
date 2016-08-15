@@ -79,7 +79,7 @@ class attempt_manager(object):
 	# Method for building the data from individual play-by-play reports
 	def Build(self):
 
-		BR_filename = 'data/Big_Roster.csv'
+		BR_filename = '../data/Big_Roster.csv'
 		print 'Initializing matrix...'
 
 		Dir = pd.read_csv(Directory_filename)
@@ -93,7 +93,7 @@ class attempt_manager(object):
 		for key in GameKeys:
 
 			print 'Processing Game {}'.format(key+1)
-			game_file = 'data/DF{}.csv'.format( str(key+1).zfill(4) ) 
+			game_file = '../data/DF{}.csv'.format( str(key+1).zfill(4) ) 
 
 			big_ro = pd.read_csv(BR_filename)
 			short_ro = big_ro[ big_ro.GameKey == key]
@@ -166,7 +166,7 @@ class attempt_manager(object):
 		self.att_matrix = csc_matrix( (loader['attempt_matrix_data'], loader['attempt_matrix_indices'], loader['attempt_matrix_indptr']), 
 			shape = loader['attempt_matrix_shape'])
 		self.no_att = len(self.attempt_type)
-		print '...done'
+		
 
 
 	# Computes a player's CF% for a season. Option exists to compute only home or away Corsi
