@@ -69,18 +69,18 @@ class attempt_manager(object):
 	def Count(self):
 
 		for key in GameKeys:
-			print 'Counting attempts in Game {}'.format(key+1)
+			print('Counting attempts in Game {}'.format(key+1))
 			game_file = '../data/PlayDF/DF{}.csv'.format( str(key+1).zfill(4) ) 
 			game_att = pd.read_csv(game_file)
 			self.no_att += len(game_att)
 
-		print 'Total number of shot attempts: {}'.format(self.no_att)
+		print('Total number of shot attempts: {}'.format(self.no_att))
 
 	# Method for building the data from individual play-by-play reports
 	def Build(self):
 
 		BR_filename = '../data/Big_Roster.csv'
-		print 'Initializing matrix...'
+		print('Initializing matrix...')
 
 		Dir = pd.read_csv(Directory_filename)
 		Dir = Dir[Dir.Position != 'G']
@@ -92,7 +92,7 @@ class attempt_manager(object):
 
 		for key in GameKeys:
 
-			print 'Processing Game {}'.format(key+1)
+			print('Processing Game {}'.format(key+1))
 			game_file = '../data/DF{}.csv'.format( str(key+1).zfill(4) ) 
 
 			big_ro = pd.read_csv(BR_filename)
@@ -143,13 +143,13 @@ class attempt_manager(object):
 		self.att_matrix = self.att_matrix.tocsc()
 
 	def Save(self):
-		print 'Saving data...'
+		print('Saving data...')
 		np.savez(self.attempt_filename, attempt_matrix_data = self.att_matrix.data, attempt_matrix_indices = self.att_matrix.indices,
 			attempt_matrix_indptr = self.att_matrix.indptr, attempt_matrix_shape = self.att_matrix.shape, 
 			game_counts = self.game_counts, home_indices = self.home_indices, 
 			attempt_type = self.attempt_type, home_teams = self.home_teams, away_teams = self.away_teams, non_goalies = self.NGs,
 			home_OI_sal = self.home_OI_sal, away_OI_sal = self.away_OI_sal, home_OI_PT = self.home_OI_PT, away_OI_PT = self.away_OI_PT)
-		print '...done'
+		print('...done')
 
 	def Load(self):
 		loader = np.load(self.attempt_filename)
@@ -172,7 +172,7 @@ class attempt_manager(object):
 	# Computes a player's CF% for a season. Option exists to compute only home or away Corsi
 	def compute_Corsi(self, player, qualifier = None):
 		if player not in self.NGs:
-			print 'Player not found'
+			print('Player not found')
 			return
 
 		NG_ind = self.NGs.index(player)
