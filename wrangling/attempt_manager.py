@@ -166,7 +166,13 @@ class attempt_manager(object):
 		self.att_matrix = csc_matrix( (loader['attempt_matrix_data'], loader['attempt_matrix_indices'], loader['attempt_matrix_indptr']), 
 			shape = loader['attempt_matrix_shape'])
 		self.no_att = len(self.attempt_type)
-		
+        
+		self.attempt_type =  [at.decode("utf-8") for at in self.attempt_type]
+		self.home_teams =  [ht.decode("utf-8") for ht in self.home_teams]
+		self.away_teams =  [at.decode("utf-8") for at in self.away_teams]
+		self.NGs =  [ng.decode("utf-8") for ng in self.NGs]
+
+        
 
 
 	# Computes a player's CF% for a season. Option exists to compute only home or away Corsi

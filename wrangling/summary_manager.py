@@ -1,8 +1,9 @@
 # Code for summarizing game Corsi data. Creates a table with number of goals, shots, misses, blocks and total shot attempts
-
 # Class for managing summaries
+from . import attempt_manager
+import pandas as pd
 
-class summary_manager(attempt_manager):
+class summary_manager(attempt_manager.attempt_manager):
 
     summary_fn = 'data/Summary.csv'
     summary = pd.DataFrame()
