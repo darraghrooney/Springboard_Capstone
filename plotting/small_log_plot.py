@@ -33,7 +33,7 @@ def train_plot(SLS):
 	fig.legend(h,l, bbox_to_anchor=(2,1) )
 	ax1.set_ylabel('Prediction score', fontsize = 12)
 	ax3.set_ylabel('Prediction score', fontsize = 12)
-	ax2.set_ylabel('Prediction score', fontsize = 12)
+	ax2.set_ylabel('Cross-entropy', fontsize = 12)
 	ax4.set_ylabel('Cross-entropy', fontsize = 12)
 	fig.text(.5,0,'Negative log of regularization strength', fontsize = 12)
 
@@ -65,7 +65,7 @@ def cv_plot(SLS):
 	fig.legend(h,l, bbox_to_anchor=(2,1) )
 	ax1.set_ylabel('Prediction score', fontsize = 12)
 	ax3.set_ylabel('Prediction score', fontsize = 12)
-	ax2.set_ylabel('Prediction score', fontsize = 12)
+	ax2.set_ylabel('Cross-entropy', fontsize = 12)
 	ax4.set_ylabel('Cross-entropy', fontsize = 12)
 	fig.text(.5,0,'Negative log of regularization strength', fontsize = 12)
 
