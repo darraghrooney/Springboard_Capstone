@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.3.19)  7 NOV 2017 15:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2017.3.19)  7 NOV 2017 18:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -903,21 +903,37 @@ Overfull \hbox (12.5533pt too wide) has occurred while \output is active
 
 [3
 
-]
+] <home_ice.png, id=111, 738.5994pt x 248.6088pt>
+File: home_ice.png Graphic file (type png)
+ <use home_ice.png>
+Package pdftex.def Info: home_ice.png used on input line 63.
+(pdftex.def)             Requested size: 322.06578pt x 108.405pt.
+
+Overfull \hbox (14.77591pt too wide) in paragraph at lines 63--63
+[][]  
+ []
+
+
 Overfull \hbox (12.5533pt too wide) has occurred while \output is active
  [][][][]  
  []
 
 [4
 
-]
+ <./home_ice.png>] <shot_dist.png, id=141, 588.2778pt x 409.7709pt>
+File: shot_dist.png Graphic file (type png)
+
+<use shot_dist.png>
+Package pdftex.def Info: shot_dist.png used on input line 73.
+(pdftex.def)             Requested size: 249.00491pt x 173.44756pt.
+
 Overfull \hbox (12.5533pt too wide) has occurred while \output is active
  [][][][]  
  []
 
 [5
 
-]
+ <./shot_dist.png>]
 Overfull \hbox (12.5533pt too wide) has occurred while \output is active
  [][][][]  
  []
@@ -946,6 +962,13 @@ Overfull \hbox (12.5533pt too wide) has occurred while \output is active
 [9
 
 ]
+Overfull \hbox (12.5533pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[10
+
+]
 \tf@nav=\write7
 \openout7 = `capstone_slides.nav'.
 
@@ -955,11 +978,11 @@ Overfull \hbox (12.5533pt too wide) has occurred while \output is active
 \tf@snm=\write9
 \openout9 = `capstone_slides.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 326.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 326.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 354.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 354.
  (./capstone_slides.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 326.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 326.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 354.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 354.
 Package rerunfilecheck Info: File `capstone_slides.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -969,10 +992,10 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 17262 strings out of 493013
- 329980 string characters out of 6135682
+ 17287 strings out of 493013
+ 330262 string characters out of 6135682
  402325 words of memory out of 5000000
- 20383 multiletter control sequences out of 15000+600000
+ 20403 multiletter control sequences out of 15000+600000
  10390 words of font info for 38 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,57p,798b,555s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -980,10 +1003,10 @@ Here is how much of TeX's memory you used:
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb>
-Output written on capstone_slides.pdf (9 pages, 62399 bytes).
+Output written on capstone_slides.pdf (10 pages, 106455 bytes).
 PDF statistics:
- 289 PDF objects out of 1000 (max. 8388607)
- 258 compressed objects within 3 object streams
- 19 named destinations out of 1000 (max. 500000)
- 79 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 320 PDF objects out of 1000 (max. 8388607)
+ 284 compressed objects within 3 object streams
+ 21 named destinations out of 1000 (max. 500000)
+ 89 words of extra memory for PDF output out of 10000 (max. 10000000)
 

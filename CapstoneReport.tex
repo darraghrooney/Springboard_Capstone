@@ -1,0 +1,1570 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font than Computer Modern for most use cases
+    \usepackage{palatino}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CapstoneReport}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Not every shot is created equal
+
+Adjusting NHL Corsi statistics for quality of opponent
+
+DP Rooney
+
+October 22, 2017
+
+    \section{Introduction and
+Background}\label{introduction-and-background}
+
+There has been considerable recent growth in advanced statistics for
+professional hockey. Besides the traditional stats such as goals,
+assists, and shots on goal, other measures of individual merit have
+arisen. One popular quantity is the ``Corsi-for percentage'', or CF\%,
+defined as follows:
+
+\[\textrm{ CF\%(player X) } = \frac{\textrm{No. shot attempts for X's team | X on-ice}}{\textrm{No. shot attempts for both teams | X on-ice }} \]
+
+Here, a ``shot attempt'' is the sum of shots on goal, shots missed, and
+shots blocked. The CF$\%$ stat evaluates how a player contributes to
+producing shot attempts for his team while preventing shot attempts
+against his team. Some of the attractive features of this statistic are:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  It combines offensive and defensive merit, so that players with flashy
+  scoring and frequent defensive lapses are not over-rated.
+\item
+  It credits players that contribute indirectly to an offensive play,
+  such as with canny passes from the defensive zone, tight
+  fore-checking, and smart spacing.
+\item
+  It eliminates some of the randomness inherent to turning shot attempts
+  into goals.
+\item
+  The data set is larger (there are roughly twice as many shot attempts
+  as shots on goal per game).
+\end{enumerate}
+
+One major drawback with this stat is that it does not take into account
+the quality of on-ice opposition. A fundamental phenomenon in hockey is
+line-matching. Each team has four different forward-lines (and three
+defense-pairings) that generally differ in abilities, and coaches will
+strategize as how to optimize the match-ups between opposing lines. For
+example, a good defensive forward line will often be matched against the
+opposition's best offensive line. Therefore, comparing the CF\% of a
+first-line and a fourth-line player is unfair to the better player,
+since he has to work harder to generate a shot attempt, and prevent
+opposing shot attempts.
+
+For example, this reddit post from 2016 points out that Jake Virtanen, a
+young, raw prospect for the Vancouver Canucks, has a better CF\% than
+Jonathan Toews, who is seen as one of the best players in the league:
+
+https://www.reddit.com/r/canucks/comments/4omaqp/why\_jake\_virtanen\_is\_better\_than\_jonathan\_toews/
+
+While Virtanen may develop into one of the best players in the league,
+it is unlikely that his performance was on par with Toews' in the
+2015-2016 season.
+
+The goal of my project is to develop a model that is more nuanced.
+Instead of modeling the ratio of shot-attempts as a function of a single
+player, we will consider the probability of shot-attempts as a function
+of all players on the ice. In other words, we want to model the
+probability
+
+\[P(\textrm{ next SA is for home-team } | \textrm{ home-players } X_1, … X_6 \textrm{ on-ice; away-players } Y_1, …, Y_6 \textrm{ on-ice } )\]
+
+My prospective client would be the management of a hockey team that
+wants to evaluate players in ways that go past the common wisdom. It may
+want to track the performance of its own players, and also evaluate
+players that are becoming free agents in the off-season. A predictive
+model that describes shot-attempt probability relative to opposing
+players would allow a team to directly compare players and assess their
+relative value.
+
+Some practical issues:
+
+\begin{itemize}
+\tightlist
+\item
+  I will be considering shot attempts not just in 5-on-5 situations, but
+  also for power play opportunities. Shot attempt difficulty is
+  radically different for the latter situations, but this will be
+  factored into my models. Penalty shots of course, both in-game and in
+  shootouts, are excluded.
+\item
+  Corsi stats are sometimes separated by ``zone starts''. Defensive
+  players who usually start their shifts in their own end will be hurt
+  considerably by this. I was unable to obtain the data that separated
+  shot attempts by zone start unfortunately, so my models ignore this
+  factor.
+\item
+  Goalies will be excluded. Some goalies are better passers and
+  rebound-handlers than others and arguably would affect shot attempts,
+  but I decided to ignore this aspect. 6-on-5 situations, where the
+  goalie is pulled, will be considered power play situations.
+\end{itemize}
+
+    \subsection{Scraping and Wrangling}\label{scraping-and-wrangling}
+
+The data used is from the 2015-2016 season. It was scraped from three
+types of game reports from the NHL: game rosters, event summaries, and
+play-by-play reports. Unfortunately, the HTML pages have been re-named,
+and re-formatted, so that the scraper will no longer work. But the data
+was scraped before this happened.
+
+The defunct URL's for the first game are:
+
+http://www.nhl.com/scores/htmlreports/20152106/RO020001.HTM
+
+http://www.nhl.com/scores/htmlreports/20152106/ES020001.HTM
+
+http://www.nhl.com/scores/htmlreports/20152106/PL020001.HTM
+
+The two-letter codes RO, ES and PL indicate the report type (roster,
+event, play), and the last four digits of the six-digit sequences
+indicate the game number (the first two digits distinguish pre-season
+(01), regular season (02) and post-season (03)). There were 1230 game in
+the 2015-2016 regular season (30 teams and 82 games each). These reports
+were all in pure HTML (no CSS or JSON), so I had to go through a lot of
+nested \texttt{\textless{}table\textgreater{}}'s to get the necessary
+data. For comparison, the new game report can be seen here:
+
+https://www.nhl.com/gamecenter/tor-vs-ott/2016/10/12/2016020001\#game=2016020001,game\_state=final
+
+I have decided not to include any code in this report, as I used quite a
+lot of Python. In the appendix, I have listed all the files with Python
+code contained in the github repository:
+
+https://github.com/darraghrooney/Springboard\_Capstone
+
+In this section I will give an overview of the files I used to form my
+data sets.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{sps} 
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}\PY{p}{,} \PY{n}{LogisticRegression}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{plotting}\PY{n+nn}{.}\PY{n+nn}{plotting} \PY{k}{as} \PY{n+nn}{myplot}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using matplotlib backend: Qt5Agg
+
+    \end{Verbatim}
+
+    The \texttt{scraping} folder contains six files for scraping the data:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The file \texttt{roster\_scrape.py} contains code for scraping the
+  roster reports. It includes a class \texttt{RosterParse} which
+  extracts the forty players that dressed (eighteen players and two
+  goalies for each team). This includes their team, the player name, the
+  position (center, left wing, right wing, defense or goalie) and their
+  jersey number. A second class, \texttt{RosterBuilder} assembled
+  rosters for all 1230 games and saved them in a 49,200 line file
+  \texttt{Big\_Roster.csv}.
+\item
+  The file \texttt{directory\_build.py} contains code for consolidating
+  the big roster into a player directory, saved in
+  \texttt{Directory.csv}. It includes a class \texttt{SalaryParse} that
+  extracts the salary for each player from the web-site
+  www.capfriendly.com. The class \texttt{DirectoryBuilder} constructs
+  the player directory and adds the salary information. The player
+  directory contains 1,011 players, of which 111 are goalies.
+\item
+  The file \texttt{salary\_fill.py} contains code for filling in some
+  missing salary information that was not immediately available from
+  CapFriendly. 25 players did not have 2015-2016 salaries available, so
+  I used their 2016-2017 salaries. Salaries are only being used to
+  estimate perception of player quality, so using salary from two
+  different years is not such a big deal.
+\item
+  The file \texttt{report\_downloader.py} contains code for downloading
+  the play-by-play and event summary reports. I used this because I
+  wanted to work on scraping while off-line.
+\item
+  Besides salary information, I also wanted to use time-on-ice (TOI)
+  information. The file \texttt{es\_scrape.py} includes code for doing
+  this. It includes a class \texttt{EventParse} that looks at the
+  event-summary reports and extracts TOI for each player for each game,
+  and a class \texttt{TOIBuilder} which totals season TOI and adds it to
+  the player directory. It also includes a function
+  \texttt{Dir\_process} which adds a column \texttt{paTOI/G} to the
+  directory. This statistic is the per-game TOI for each player,
+  multiplied by 0.75 if the player is a defensemen. Because there are 3
+  defense lines to 4 forward lines, defensemen play approximately 4/3 as
+  much, so TOI/G should be adjusted.
+\item
+  The file \texttt{attempt\_scrape.py} contains code for extracting the
+  shot-attempt data for each game and saving it as a table. These tables
+  include 14 columns: the event (shot, missed shot, goal, blocked shot),
+  a boolean stating whether the attempt was for the home teams, the
+  jersey numbers for the six home player and six away players (some of
+  which would be listed as \texttt{None} if there were penalties). Note:
+  these tables are not in the repo, as I combined them in the wrangling
+  process and discarded them.
+\end{enumerate}
+
+Here is a sample of the player directory in \texttt{Directory.csv}. Note
+goalies do not have a TOI, so there is a NaN recorded there:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/Directory.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}    ID           Player Position  Games Dressed  Salary          TOI    paTOI/G
+        0   1       AARON DELL        G              2  575000          NaN        NaN
+        1   2     AARON EKBLAD        D             78  925000  1690.816667  16.257853
+        2   3       AARON NESS        D              8  575000    99.100000   9.290625
+        3   4  ADAM CLENDENING        D             29  761250   429.083333  11.096983
+        4   5   ADAM CRACKNELL        R             52  575000   636.016667  12.231090
+\end{Verbatim}
+        
+    There is still work to be done however. In a separate folder
+\texttt{wrangling}, I have three files for further data handling. I'll
+talk about the third in the next section. The other two are:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \texttt{attempt\_manager.py} is responsible for consolidating the
+  shot-attempt data into one data set. It contains a class
+  \texttt{attempt\_manager} that does this. It saves a number of objects
+  into the file \texttt{Attempts.npz}. First and foremost, it contains a
+  0-1 sparse matrix (a \texttt{csc\_matrix} object from the module
+  \texttt{scipy.sparse}) with 1800 columns and 136,530 rows. Each row
+  represents one shot attempt, and each column represents one player,
+  and each element is \texttt{True} if and only if that player was on
+  the ice for that shot attempt. There are 1800 columns because there
+  are 900 players (we exclude the goalies) and we consider a player
+  at-home to be distinct from a player away-from-home, so columns 1-900
+  are home players and 901-1800 away players.
+
+  The sparse matrix is our main data set, but some other objects are
+  also contained in the file:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the list of non-goalie names so that we can match the columns to
+    players
+  \item
+    game counts: the number of shot attempts in each game
+  \item
+    a list of indices indicating which of the shot attempts was for the
+    home team. This is our indicator variable.
+  \item
+    a list of attempt type (whether an attempt was a goal, shot, missed
+    shot, or blocked shot).
+  \item
+    four lists indicating the average salary and average playing time of
+    the players on-ice for the home and away sides
+  \end{itemize}
+\end{enumerate}
+
+The class also contains a method \texttt{compute\_Corsi} which computes
+the season CF for any player.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  The file \texttt{summary\_manager.py} is for looking at attempt data
+  on a game-by-game basis. It includes a class \texttt{summary\_manager}
+  which adds the goals, shots, missed shots, blocked shots and total
+  shot attempts for each team in each game and saves it in the file
+  \texttt{Summary.csv} as a 1230 by 10 table.
+\end{enumerate}
+
+Here is a sample of the Summary data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/Summary.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    Home goals  Home shots  Home misses  Home blocks  Home Corsi  Away goals  \textbackslash{}
+        0           1          36           14           15          66           3   
+        1           2          32           14           15          63           3   
+        2           1          29           11           13          54           5   
+        3           1          19           11           13          44           5   
+        4           2          29           19           13          63           6   
+        
+           Away shots  Away misses  Away blocks  Away Corsi  
+        0          26           16            9          54  
+        1          24           11            3          41  
+        2          39           11           10          65  
+        3          27           12           10          54  
+        4          26            9            9          50  
+\end{Verbatim}
+        
+    \subsection{A first look at the data}\label{a-first-look-at-the-data}
+
+    First note that we have lots of data to work with. There were 136,530
+shot attempts in the 2015-2016 season and 900 players (i.e.~1800
+features):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{wrangling}\PY{n+nn}{.}\PY{n+nn}{attempt\PYZus{}manager} \PY{k}{as} \PY{n+nn}{am}
+        
+        \PY{n}{AM} \PY{o}{=} \PY{n}{am}\PY{o}{.}\PY{n}{attempt\PYZus{}manager}\PY{p}{(}\PY{p}{)}
+        \PY{n}{AM}\PY{o}{.}\PY{n}{Load}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of non\PYZhy{}goalies that dressed in 2015\PYZhy{}16: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{NGs}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{t\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Goals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shots saved}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shot missed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shots blocked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{t\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{t\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{attempt\PYZus{}type}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total shot attempts: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(} \PY{n}{AM}\PY{o}{.}\PY{n}{no\PYZus{}att} \PY{p}{)}\PY{p}{)} 
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of non-goalies that dressed in 2015-16: 900
+Goals: 6565
+Shots blocked: 34845
+Shots saved: 66601
+Shot missed: 28519
+Total shot attempts: 136530
+
+    \end{Verbatim}
+
+    We can ask how many data points we have for each player. It turns out
+the average is over 700. However, the spread is quite large (over 70
+precent of the mean), and 18 percent of players have fewer than 100:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{pl\PYZus{}atts} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1800}\PY{p}{)}\PY{p}{:}
+            \PY{n}{pl\PYZus{}atts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{att\PYZus{}matrix}\PY{o}{.}\PY{n}{getcol}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{o}{.}\PY{n}{nnz}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of player on\PYZhy{}ice shot attempts: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{pl\PYZus{}atts}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{pl\PYZus{}atts}\PY{p}{)}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Standard deviation: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{pl\PYZus{}atts}\PY{p}{)}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fraction of players with 100 or fewer: }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{pl\PYZus{}atts}\PY{p}{)}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{pl\PYZus{}atts}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mi}{101}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{1800}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}axes}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of on\PYZhy{}ice shot attempts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of players}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distribution of on\PYZhy{}ice shot attempts by player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{pl\PYZus{}atts}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean of player on-ice shot attempts: 740.4744444444444
+Median: 737.5
+Standard deviation: 547.8564539886445
+Fraction of players with 100 or fewer: 0.180555555556
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{CapstoneReport_files/CapstoneReport_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Note that in the foregoing, we are considering player X at home to be
+different than the same player away from home. This is because there is
+a clear home-ice advantage, in terms of goals and shot attempts, as seen
+below. So for the extent of this report, we will keep all 1,800
+features, rather than attempt to combine into 900.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home goals: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(} \PY{n+nb}{sum}\PY{p}{(} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(} \PY{n}{AM}\PY{o}{.}\PY{n}{attempt\PYZus{}type}\PY{p}{)}\PYZbs{}
+                \PY{p}{[}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away goals: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{attempt\PYZus{}type}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZhy{}} \PYZbs{}
+                \PY{n+nb}{sum}\PY{p}{(} \PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(} \PY{n}{AM}\PY{o}{.}\PY{n}{attempt\PYZus{}type}\PY{p}{)}\PY{p}{[}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home shot attempts: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away shot attempts: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(} \PY{n}{AM}\PY{o}{.}\PY{n}{no\PYZus{}att} \PY{o}{\PYZhy{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{)} \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Home goals: 3404
+Away goals: 3161
+Home shot attempts: 70468
+Away shot attempts: 66062
+
+    \end{Verbatim}
+
+    Goals, not shot attempts, are what win games. So we would should examine
+the correlation between them. As it turns out, the correlation is
+actually slightly negative!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{wrangling}\PY{n+nn}{.}\PY{n+nn}{summary\PYZus{}manager} \PY{k}{as} \PY{n+nn}{sm}
+        
+        \PY{n}{SM} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{summary\PYZus{}manager}\PY{p}{(}\PY{p}{)}
+        \PY{n}{SM}\PY{o}{.}\PY{n}{Load}\PY{p}{(}\PY{p}{)}
+        \PY{n}{goal\PYZus{}diff} \PY{o}{=} \PY{n}{SM}\PY{o}{.}\PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home goals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{SM}\PY{o}{.}\PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away goals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{Corsi\PYZus{}diff} \PY{o}{=} \PY{n}{SM}\PY{o}{.}\PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{SM}\PY{o}{.}\PY{n}{summary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+        
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}axes}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Corsi difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Goal difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Goals versus Shot attempts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{Corsi\PYZus{}diff}\PY{p}{,} \PY{n}{goal\PYZus{}diff}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{CapstoneReport_files/CapstoneReport_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{LR} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+        \PY{n}{LR}\PY{o}{.}\PY{n}{fit}\PY{p}{(} \PY{n}{Corsi\PYZus{}diff}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{goal\PYZus{}diff}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Regression coefficient: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{LR}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Regression coefficient: -0.026606973456951434
+
+    \end{Verbatim}
+
+    There are ways to explain this. First of all, goalie skill is of course
+a factor in converting shot attempts into goals. More importantly, teams
+that score early and obtain a lead often sit back and allow their
+opponent to take poor-quality shots. A more nuanced analysis would take
+a deeper look at this effect. We are more concerned with using the stat
+as a indicator of player performance, not of team performance, so we
+shall move on.
+
+    We can use two proxy statistics to assess `quality of opponent' (or at
+least the perception of quality): player salary and average playing
+time. Salary is a little problematic, because younger players are
+certainly underpaid, and the production of older players can fall off
+after getting a fat contract. So salary and quality do not correlate as
+much as we would like. The latter statistic is probably better, because
+a coach can respond quickly to changes in playing quality, and because
+there is a decent spread in player time on ice (TOI):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{players} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/Directory.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{players}\PY{o}{=}\PY{n}{players}\PY{p}{[} \PY{o}{\PYZti{}}\PY{n}{players}\PY{o}{.}\PY{n}{TOI}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}axes}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(} \PY{n+nb}{list}\PY{p}{(}\PY{n}{players}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paTOI/G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Positionally adjusted minutes on\PYZhy{}ice per game}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variation in average TOI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{CapstoneReport_files/CapstoneReport_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    If playing time and salary are both good measures of player quality, we
+should expect them to correlate:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}axes}\PY{p}{(}\PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{,}\PY{l+m+mf}{1.2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{players}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paTOI/G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{players}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{24}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Positionally adjusted TOI per game}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Annual salary in tens of millions of USD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Salary versus playing time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{CapstoneReport_files/CapstoneReport_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We see a clear correlation, although we can see a subgroup that is
+rather flat at the bottom. As it happens, entry-level contracts are
+capped at 925,000 USD, so that subgroup represents the underpaid young
+players.
+
+    To support our claim that better players tend to share the ice with
+other better players, we consider the average salary and playing time
+for home players versus away players. \texttt{attempt\_manager} has
+class variables recording this data.
+
+Visually it's difficult to tell whether there's a good correlation,
+especially with respect to salary:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{myplot}\PY{o}{.}\PY{n}{sal\PYZus{}PT\PYZus{}plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{CapstoneReport_files/CapstoneReport_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    If we run a linear regression however, we can see that, after proper
+scaling, there is a moderate salary correlation:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{import} \PY{n+nn}{wrangling}\PY{n+nn}{.}\PY{n+nn}{attempt\PYZus{}manager} \PY{k}{as} \PY{n+nn}{am}
+         
+         \PY{n}{AM} \PY{o}{=} \PY{n}{am}\PY{o}{.}\PY{n}{attempt\PYZus{}manager}\PY{p}{(}\PY{p}{)}
+         \PY{n}{AM}\PY{o}{.}\PY{n}{Load}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{h\PYZus{}sal} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}sal}\PY{p}{)}
+         \PY{n}{a\PYZus{}sal} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}sal}\PY{p}{)}
+         \PY{n}{h\PYZus{}PT} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}PT}\PY{p}{)}
+         \PY{n}{a\PYZus{}PT} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}PT}\PY{p}{)}
+         
+         \PY{n}{h\PYZus{}sal\PYZus{}norm} \PY{o}{=} \PY{p}{(}\PY{n}{h\PYZus{}sal}\PY{o}{\PYZhy{}}\PY{n}{h\PYZus{}sal}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{h\PYZus{}sal}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         \PY{n}{a\PYZus{}sal\PYZus{}norm} \PY{o}{=} \PY{p}{(}\PY{n}{a\PYZus{}sal}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}sal}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{a\PYZus{}sal}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{LR} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{LR}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{h\PYZus{}sal\PYZus{}norm}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{a\PYZus{}sal\PYZus{}norm}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Correlation of home on\PYZhy{}ice salary to away on\PYZhy{}ice salary: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{LR}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Correlation of home on-ice salary to away on-ice salary: 0.14216013948400255
+
+    \end{Verbatim}
+
+    And when we do the same to the playing time data, we get a correlation
+coefficient of 0.30. This is around what I would expect: a definite
+correlation, but enough `cross-talk' between various lines that we get
+good players on the ice with not-so-good players at a reasonable clip.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{h\PYZus{}PT\PYZus{}norm} \PY{o}{=} \PY{p}{(}\PY{n}{h\PYZus{}PT}\PY{o}{\PYZhy{}}\PY{n}{h\PYZus{}PT}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{h\PYZus{}PT}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         \PY{n}{a\PYZus{}PT\PYZus{}norm} \PY{o}{=} \PY{p}{(}\PY{n}{a\PYZus{}PT}\PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}PT}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{a\PYZus{}PT}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{LR1} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         \PY{n}{LR1}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{h\PYZus{}PT\PYZus{}norm}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{a\PYZus{}PT\PYZus{}norm}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Correlation of home on\PYZhy{}ice PT to away on\PYZhy{}ice PT: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{LR1}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Correlation of home on-ice PT to away on-ice PT: 0.29567157178338255
+
+    \end{Verbatim}
+
+    We can now ask whether these two metrics affect shot attempts:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{myplot}\PY{o}{.}\PY{n}{OI\PYZus{}diff\PYZus{}plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{CapstoneReport_files/CapstoneReport_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It is clear that effect size is actually quite small, and in the case of
+salary, there may not be any effect at all. Despite the very significant
+overlap in both cases, our sample size is very large, so we may get very
+large z-statistics anyway.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{AM} \PY{o}{=} \PY{n}{am}\PY{o}{.}\PY{n}{attempt\PYZus{}manager}\PY{p}{(}\PY{p}{)}
+         \PY{n}{AM}\PY{o}{.}\PY{n}{Load}\PY{p}{(}\PY{p}{)}
+         \PY{n}{away\PYZus{}indices} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{attempt\PYZus{}type}\PY{p}{)}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb}{set}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{)}\PY{p}{)}
+         \PY{n}{away\PYZus{}indices}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sal\PYZus{}diff} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sal\PYZus{}diff\PYZus{}home} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}sal}\PY{p}{)}\PY{p}{[}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{]}\PY{o}{\PYZhy{}} \PYZbs{}
+                              \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}sal}\PY{p}{)}\PY{p}{[}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{]}\PY{p}{)}
+         \PY{n}{sal\PYZus{}diff\PYZus{}away} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}sal}\PY{p}{)}\PY{p}{[}\PY{n}{away\PYZus{}indices}\PY{p}{]} \PY{o}{\PYZhy{}} \PYZbs{}
+                              \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}sal}\PY{p}{)}\PY{p}{[}\PY{n}{away\PYZus{}indices}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{sal\PYZus{}diff\PYZus{}mean\PYZus{}diff} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sal\PYZus{}diff\PYZus{}home}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sal\PYZus{}diff\PYZus{}away}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sal\PYZus{}diff\PYZus{}var\PYZus{}home} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sal\PYZus{}diff\PYZus{}home}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sal\PYZus{}diff\PYZus{}var\PYZus{}away} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sal\PYZus{}diff\PYZus{}away}\PY{p}{)}\PY{p}{)}
+         \PY{n}{nh} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{sal\PYZus{}diff\PYZus{}home}\PY{p}{)}
+         \PY{n}{na} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{sal\PYZus{}diff\PYZus{}away}\PY{p}{)}
+         \PY{n}{sal\PYZus{}diff\PYZus{}error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{l+m+mi}{1}\PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{nh}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{na}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{p}{(}\PY{n}{nh}\PY{o}{*}\PY{n}{sal\PYZus{}diff\PYZus{}var\PYZus{}home} \PY{o}{+} \PY{n}{nh}\PY{o}{*}\PY{n}{sal\PYZus{}diff\PYZus{}var\PYZus{}away}\PY{p}{)}\PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{nh}\PY{o}{+}\PY{n}{na}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{z\PYZus{}statistic} \PY{o}{=} \PY{n}{sal\PYZus{}diff\PYZus{}mean\PYZus{}diff} \PY{o}{/} \PY{n}{sal\PYZus{}diff\PYZus{}error}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Difference in salary discrepancy between home and away shot attempts: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{sal\PYZus{}diff\PYZus{}mean\PYZus{}diff}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The z\PYZhy{}score is: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{z\PYZus{}statistic}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The probability that this is just a fluke is: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{sps}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{z\PYZus{}statistic}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Difference in salary discrepancy between home and away shot attempts: 426308.743591288
+The z-score is: 44.959248570399794
+The probability that this is just a fluke is: 0.0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{PT\PYZus{}diff\PYZus{}home} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}PT}\PY{p}{)}\PY{p}{[}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{]} \PY{o}{\PYZhy{}} \PYZbs{}
+                              \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}PT}\PY{p}{)}\PY{p}{[}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{]}
+         \PY{n}{PT\PYZus{}diff\PYZus{}away} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}PT}\PY{p}{)}\PY{p}{[}\PY{n}{away\PYZus{}indices}\PY{p}{]} \PY{o}{\PYZhy{}} \PYZbs{}
+                              \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}PT}\PY{p}{)}\PY{p}{[}\PY{n}{away\PYZus{}indices}\PY{p}{]}
+         \PY{n}{PT\PYZus{}diff\PYZus{}mean\PYZus{}diff} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{PT\PYZus{}diff\PYZus{}home}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{PT\PYZus{}diff\PYZus{}away}\PY{p}{)}\PY{p}{)}
+         \PY{n}{PT\PYZus{}diff\PYZus{}var\PYZus{}home} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{PT\PYZus{}diff\PYZus{}home}\PY{p}{)}\PY{p}{)}
+         \PY{n}{PT\PYZus{}diff\PYZus{}var\PYZus{}away} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{PT\PYZus{}diff\PYZus{}away}\PY{p}{)}\PY{p}{)}
+         \PY{n}{nh} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{PT\PYZus{}diff\PYZus{}home}\PY{p}{)}
+         \PY{n}{na} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{PT\PYZus{}diff\PYZus{}away}\PY{p}{)}
+         \PY{n}{PT\PYZus{}diff\PYZus{}error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{l+m+mi}{1}\PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{nh}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{na}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{p}{(}\PY{n}{nh}\PY{o}{*}\PY{n}{PT\PYZus{}diff\PYZus{}var\PYZus{}home} \PY{o}{+} \PY{n}{nh}\PY{o}{*}\PY{n}{PT\PYZus{}diff\PYZus{}var\PYZus{}away}\PY{p}{)}\PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{nh}\PY{o}{+}\PY{n}{na}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{z\PYZus{}statistic} \PY{o}{=} \PY{n}{PT\PYZus{}diff\PYZus{}mean\PYZus{}diff} \PY{o}{/} \PY{n}{PT\PYZus{}diff\PYZus{}error}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Difference in playing time discrepancy between home and away shot attempts: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{PT\PYZus{}diff\PYZus{}mean\PYZus{}diff}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The z\PYZhy{}score is: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{z\PYZus{}statistic}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The probability that this is just a fluke is: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{sps}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{z\PYZus{}statistic}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Difference in playing time discrepancy between home and away shot attempts: 0.6652949318987651
+The z-score is: 57.9543230745336
+The probability that this is just a fluke is: 0.0
+
+    \end{Verbatim}
+
+    Both of the effect sizes (average salary bump of \$436,000 and playing
+time bump of 36 seconds per 60 minutes) are rather small but definitely
+not trivial. Additionally, the large sample sizes allow us to conclude
+that these effects are very significant. If salary and playing time are
+good indicators of player ability, then the ability of players on the
+ice affects frequency of shot attempts.
+
+    We have already mentioned that playing time is probably a better
+indicator of player ability than salary. Moreover, both variables are
+correlated, so is it necessary to consider both? More variables lead to
+overfitting and we don't want two features when only one is needed.
+
+Now, one can imagine reasons why salary could still be useful. Some
+older players may be quite skilled but with lower stamina. Therefore
+they may be well compensated, but given less playing time. A more
+important effect is that players on bad teams get more playing time than
+they deserve, because their competition is limited. Presumably their
+salary would not reflect this lower competition. Conversely, players on
+loaded teams may be well-paid to reflect their ability, but may see less
+ice-team because their teammates are good. This effect is probably
+mitigated considerably by the salary cap, but let us examine the data.
+
+Let's create a third feature by projecting away PT from the salary data.
+Define adjusted salary to be:
+\[\textit{adjusted salary = salary -  ( PT-salary correlation) * (playing time) }\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{numerator1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}sal}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}PT}\PY{p}{)}\PY{o}{.}\PY{n}{T} \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{denom1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}PT}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}PT}\PY{p}{)}\PY{o}{.}\PY{n}{T} \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{adj\PYZus{}sal\PYZus{}home} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}sal}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{numerator1}\PY{o}{/}\PY{n}{denom1} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}OI\PYZus{}PT}\PY{p}{)}
+         
+         \PY{n}{numerator2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}sal}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}PT}\PY{p}{)}\PY{o}{.}\PY{n}{T} \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{denom2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}PT}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}PT}\PY{p}{)}\PY{o}{.}\PY{n}{T} \PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{adj\PYZus{}sal\PYZus{}away} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}sal}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{numerator2}\PY{o}{/}\PY{n}{denom2} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{matrix}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{away\PYZus{}OI\PYZus{}PT}\PY{p}{)}
+         
+         \PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}home} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{adj\PYZus{}sal\PYZus{}home}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{adj\PYZus{}sal\PYZus{}away}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{AM}\PY{o}{.}\PY{n}{home\PYZus{}indices}\PY{p}{]}
+         \PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}away} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{adj\PYZus{}sal\PYZus{}home}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{away\PYZus{}indices}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{adj\PYZus{}sal\PYZus{}away}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{away\PYZus{}indices}\PY{p}{]}
+         
+         \PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}mean\PYZus{}diff} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}home}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}away}\PY{p}{)}
+         \PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}var\PYZus{}home} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}home}\PY{p}{)}
+         \PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}var\PYZus{}away} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}away}\PY{p}{)}
+         \PY{n}{nh} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}home}\PY{p}{)}
+         \PY{n}{na} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}away}\PY{p}{)}
+         \PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}error} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{l+m+mi}{1}\PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{nh}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{na}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(} \PY{p}{(}\PY{n}{nh}\PY{o}{*}\PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}var\PYZus{}home} \PY{o}{+} \PY{n}{nh}\PY{o}{*}\PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}var\PYZus{}away}\PY{p}{)}\PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{nh}\PY{o}{+}\PY{n}{na}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{z\PYZus{}statistic} \PY{o}{=} \PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}mean\PYZus{}diff} \PY{o}{/} \PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}error}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Difference in adjusted salary discrepancy between home and away shot attempts: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(} \PY{n}{adj\PYZus{}sal\PYZus{}diff\PYZus{}mean\PYZus{}diff}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The z\PYZhy{}score is: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{z\PYZus{}statistic}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The probability that this is just a fluke is: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{sps}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{n}{z\PYZus{}statistic}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Difference in adjusted salary discrepancy between home and away shot attempts: 285534.7842569862
+The z-score is: 34.94615612878633
+The probability that this is just a fluke is: 0.0
+
+    \end{Verbatim}
+
+    So, the adjustment decreases the effect size, by slightly less than
+half. Yet the confidence in a significant result is still extremely
+high. The large sample size has lot to do with this, but as of now, the
+data indicates we should keep both variables.
+
+    \subsection{Basic models}\label{basic-models}
+
+    The first step is to use a logistic regression. We will look at three
+simple models:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  A logistic regression that just uses the Corsi numbers of the home and
+  away players. The correct features are not the CF\% numbers
+  themselves, but the logarithms thereof. Additionally, we are not going
+  to use the \emph{averages}, but the sum. The reason is that power play
+  situations mean that the number of players on-ice are not constant,
+  and this certainly affects the shot attempts. Therefore, our first two
+  variables are
+  \(x_1 = \sum_{i, X_i \textrm{ on-ice }} \log(CF\%(X_i))\) and
+  \(x_2 = \sum_{i, Y_i \textrm{ on-ice }} \log(CF\%(Y_i))\), where
+  \(X_i\) and \(Y_i\) represent home and away players, respectively.
+\item
+  A logistic regression that adds two more variables: \(x_3\) and
+  \(x_4\), the average playing-time of the home on-ice players and the
+  away on-ice players.
+\item
+  A logistic regression that adds another two variables: \(x_5\) and
+  \(x_6\), the average salary of the home on-ice players and the away
+  on-ice players.
+\end{enumerate}
+
+First, to properly evaluate our models, we need to make a training /
+cross-validation split. We have some code in the file
+\texttt{data\_split.py} that does this. Sixty percent of our data set is
+sent to the file \texttt{Training.npz} to be use to train our algorithm.
+The split is done randomly (and seeded properly). The remaining data are
+split evenly and sent to \texttt{CPV.npz} and \texttt{Test.npz}.
+
+After we obtain our training set, we must reduce our data set to the six
+desired features. We have code in the file \texttt{feature\_assemble.py}
+that accomplishes this. It contains a class \texttt{FeatureAssemble},
+which includes methods \texttt{Corsis()} and \texttt{Assemble()}. The
+former computes the CF\% stats, but only using the shot attempts in the
+training set, and the latter constructs a table containing \(x_1\)
+through \(x_6\).
+
+One practical issue that should be noted: since we are using
+log-likelihoods, any CF\% that is 0 or 100 will cause an error. This is
+not an issue for most players, but for players that have little data
+available, we must use a fudge factor \(\epsilon\), and insist that
+every player is on the ice for at least \(\epsilon\) shot attempts in
+either direction. In our code we use \(\epsilon=0.1\), so that a player
+that is on the ice for only one shot attempt has a \(CF\%\) of either
+9.09\% or 90.9\%. This also means a player who sees zero shot attempts
+has a CF\% of exactly 50\%.
+
+Now that we have constructed our data, we code a logistic classifier
+object \texttt{small\_logistic}, contained in the file
+\texttt{small\_logistic.py}. This object first scales the data (this is
+important, as salary is much larger in scale than playing time), and
+then fits the data three times. First using only \(x_1\) and \(x_2\),
+second adding \(x_3\) and \(x_4\), and third adding \(x_5\) and \(x_6\).
+It can also compute the prediction score and cross-entropy of the
+trained classifier on both the training and cross-validation data. We
+use another object called \texttt{SL\_sweeper} that varies the
+regularization strength (actually the parameter is \(C\), the inverse of
+the regularization strength):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{import} \PY{n+nn}{warnings} 
+         \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k+kn}{import} \PY{n+nn}{small\PYZus{}logistic}\PY{n+nn}{.}\PY{n+nn}{small\PYZus{}logistic} \PY{k}{as} \PY{n+nn}{slr}
+         
+         \PY{n}{C} \PY{o}{=} \PY{p}{[} \PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{c}\PY{o}{/}\PY{l+m+mf}{2.}\PY{p}{)} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{]}
+         \PY{n}{SLS} \PY{o}{=} \PY{n}{slr}\PY{o}{.}\PY{n}{SL\PYZus{}sweeper}\PY{p}{(}\PY{n}{C}\PY{p}{)}
+         \PY{n}{SLS}\PY{o}{.}\PY{n}{training}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    Now that we have trained the algorithm, we can display the learning
+curves. The four graphs below show the prediction score (left) and
+cross-entropy (right) as \(C\) varies, for all three methods. The lower
+graphs are identical to upper graphs, but with the vertical scale
+magnified, so that we can see the separation of the three algorithms:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{import} \PY{n+nn}{plotting}\PY{n+nn}{.}\PY{n+nn}{small\PYZus{}log\PYZus{}plot} \PY{k}{as} \PY{n+nn}{slp}
+         \PY{n}{slp}\PY{o}{.}\PY{n}{train\PYZus{}plot}\PY{p}{(}\PY{n}{SLS}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{CapstoneReport_files/CapstoneReport_43_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Here is how the algorithms fare on the cross-validation data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{slp}\PY{o}{.}\PY{n}{cv\PYZus{}plot}\PY{p}{(}\PY{n}{SLS}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{CapstoneReport_files/CapstoneReport_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    If we pick the algorithm that performs best, and choose the best \(C\),
+these are our performance metrics:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{best\PYZus{}C} \PY{o}{=} \PY{n}{SLS}\PY{o}{.}\PY{n}{eval\PYZus{}matrix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}\PY{p}{)}
+         \PY{n}{SLS}\PY{o}{.}\PY{n}{eval\PYZus{}matrix}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{best\PYZus{}C}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} split     metric       
+         Training  Scores           0.614566
+                   Cross entropy     0.65181
+         CV        Scores           0.626749
+                   Cross entropy    0.641316
+         Name: 31622.7766017, dtype: object
+\end{Verbatim}
+        
+    Some observations:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We must admit that the improvement we get by adding salary and PT is
+  very small (so small that we needed to magnify). Ultimately, this has
+  to be somewhat disappointing.
+\item
+  The prediction score using just the Corsi numbers however is not that
+  bad. This is an inherently noisy process, so we do not expect do get
+  anywhere near to even 90\% prediction score. Getting above 60\% is
+  rather satisfying. Clearly, we have some predictive power.
+\item
+  Judging by cross-entropy on the training and cross-validation sets,
+  adding PT improves our model, and adding salary improves it even more.
+  Interestingly, these improvements do not necessarily carry over to the
+  prediction score. Adding salary hurts the prediction score on the
+  training set, while on the cross-validation set, the Corsi + PT model
+  performs the worst! Ultimately, we have to judge our model on
+  cross-entropy rather than prediction score.
+\item
+  Strangely, our metrics are slightly better on the cross-validation
+  data! Presumably, this is because of a smaller data set (although of
+  course we are using average cross-entropy).
+\item
+  The cross-validation learning curves do not really a show an optimum:
+  the performance does not suffer by eliminating regularization.
+\end{enumerate}
+
+We can conclude from 4. and 5. that we are definitely not over-fitting
+our algorithms. Combining that with the disappointing improvement
+indicates we need to implement more powerful models.
+
+    \subsection{Logistic regression with 1800
+features}\label{logistic-regression-with-1800-features}
+
+    The models described so far are quite basic, and more sophistication is
+required. The obvious next step is to implement a logistic classifier
+that uses all 1800 features. Presumably the much larger feature space
+will allow us to build a better classifier.
+
+We use an object \texttt{big\_logistic} in the file
+\texttt{big\_logistic/big\_logistic.py} which is similar to
+\texttt{small\_logistic}. Actually, it is simpler, since we have one
+rather than three models. Additionally, we don't need to scale the
+training set, since all of our feature variables are binary. We also
+have an object \texttt{BL\_sweeper} which sweeps across a list of
+regularization constants.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{import} \PY{n+nn}{big\PYZus{}logistic}\PY{n+nn}{.}\PY{n+nn}{big\PYZus{}logistic} \PY{k}{as} \PY{n+nn}{blr}
+         
+         \PY{n}{C} \PY{o}{=} \PY{p}{[} \PY{n+nb}{pow}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{c}\PY{o}{/}\PY{l+m+mf}{4.}\PY{p}{)} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{]}
+         \PY{n}{BLS} \PY{o}{=} \PY{n}{blr}\PY{o}{.}\PY{n}{BL\PYZus{}sweeper}\PY{p}{(}\PY{n}{C}\PY{p}{)}
+         \PY{n}{BLS}\PY{o}{.}\PY{n}{training}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{import} \PY{n+nn}{plotting}\PY{n+nn}{.}\PY{n+nn}{big\PYZus{}log\PYZus{}plot} \PY{k}{as} \PY{n+nn}{blp}
+         
+         \PY{n}{blp}\PY{o}{.}\PY{n}{comp\PYZus{}plot}\PY{p}{(}\PY{n}{BLS}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{CapstoneReport_files/CapstoneReport_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    What we can observe:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Performance on the training set is noticeably improved. Peak
+  prediction score has increased from around 61.5 to 65 percent.
+  Cross-entropy has decreased from around 0.65 to 0.60.
+\item
+  We begin to see the hallmark characteristics of learning curves: there
+  is considerable separation between training and cross-validation as
+  regularization is removed. Additionally, we can detect an optimum in
+  the cross-validation curve (it is somewhat harder to see on the right,
+  but there is a minimum).
+\item
+  The bottom-line is that the cross-entropy of the algorithm on the
+  cross-validation set has improved. It is certainly a moderate
+  improvement:
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Optimal cross\PYZhy{}validation accuracy using 6 features: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PYZbs{}
+             \PY{n+nb}{format}\PY{p}{(}\PY{n}{SLS}\PY{o}{.}\PY{n}{eval\PYZus{}matrix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Optimal cross\PYZhy{}validation accuracy using 1800 features: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PYZbs{}
+             \PY{n+nb}{format}\PY{p}{(}\PY{n}{BLS}\PY{o}{.}\PY{n}{eval\PYZus{}matrix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Optimal cross\PYZhy{}validation cross\PYZhy{}entropy using 6 features: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PYZbs{}
+             \PY{n+nb}{format}\PY{p}{(}\PY{n}{SLS}\PY{o}{.}\PY{n}{eval\PYZus{}matrix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Optimal cross\PYZhy{}validation cross\PYZhy{}entropy using 1800 features: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PYZbs{}
+             \PY{n+nb}{format}\PY{p}{(}\PY{n}{BLS}\PY{o}{.}\PY{n}{eval\PYZus{}matrix}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Optimal cross-validation accuracy using 6 features: 0.6268951878707977
+Optimal cross-validation accuracy using 1800 features: 0.6217681095729877
+Optimal cross-validation cross-entropy using 6 features: 0.6413161525631554
+Optimal cross-validation cross-entropy using 1800 features: 0.6292116907923556
+
+    \end{Verbatim}
+
+    Nevertheless, we can conclude that our logistic classifier performs
+better than the previous basic models.
+
+    \subsection{Random Forests}\label{random-forests}
+
+We would like an algorithm that has more significant improvement than
+the logarithmic regression used above. Neural networks and support
+vector machines are a possibility, but perhaps
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{import} \PY{n+nn}{forests}\PY{n+nn}{.}\PY{n+nn}{rafo} \PY{k}{as} \PY{n+nn}{rf}
+         
+         \PY{n}{depths} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{125}\PY{p}{]}
+         \PY{n}{n\PYZus{}tr} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}
+         
+         \PY{n}{RFs} \PY{o}{=} \PY{n}{rf}\PY{o}{.}\PY{n}{rf\PYZus{}coll}\PY{p}{(}\PY{n}{depths}\PY{p}{,}\PY{n}{n\PYZus{}tr}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{RFs}\PY{o}{.}\PY{n}{training}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{RFs}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{k+kn}{import} \PY{n+nn}{plotting}\PY{n+nn}{.}\PY{n+nn}{rf\PYZus{}plot} \PY{k}{as} \PY{n+nn}{rfp}
+         
+         \PY{n}{rfp}\PY{o}{.}\PY{n}{rf\PYZus{}plot}\PY{p}{(}\PY{n}{RFs}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{CapstoneReport_files/CapstoneReport_60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{best\PYZus{}ps}\PY{o}{=}\PY{n}{RFs}\PY{o}{.}\PY{n}{eval\PYZus{}matrix}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}
+         \PY{n}{best\PYZus{}cv}\PY{o}{=}\PY{n}{RFs}\PY{o}{.}\PY{n}{eval\PYZus{}matrix}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{idxmin}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best depth and tree number with respect to accuracy: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{best\PYZus{}ps}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best depth and tree number with respect to cross entropy: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{best\PYZus{}cv}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Best depth and tree number with respect to accuracy: (125, 100)
+Best depth and tree number with respect to cross entropy: (125, 100)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best prediction accuracy: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{RFs}\PY{o}{.}\PY{n}{eval\PYZus{}matrix}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{best\PYZus{}cv}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scores}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best cross entropy: }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{RFs}\PY{o}{.}\PY{n}{eval\PYZus{}matrix}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{best\PYZus{}cv}\PY{p}{,}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross entropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Best prediction accuracy: 0.658866183256
+Best cross entropy: 0.617726700542
+
+    \end{Verbatim}
+
+    We have improved the accuracy to 65.9 percent, and the cross-entropy to
+61.8 percent.
+
+    \subsection{Interpretation and
+Recommendations}\label{interpretation-and-recommendations}
+
+    Given that a logistic regression model was clearly inferior to our
+random forest classifier, we shall use the latter to draw conclusions.
+To evaluate players, we can ask our model to predict shot attempts for
+each player, when only that player is on the ice. Clearly an artificial
+scenario, but since random forest algorithms split based on one feature
+at a time, this is the best way to analyze our model. An alternative
+would be to ask the model what happens for all possible player
+combinations, but the computation time for this task would be very high.
+
+Additionally, the \texttt{sklearn} package provides a
+\texttt{feature\_importances\_} method, which allows us to look at how
+influential a player is within the model. This way, we can weed out
+spurious findings: if a player's Corsi number differs significantly from
+the model prediction, and
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier} \PY{k}{as} \PY{n}{RFC}
+         \PY{k+kn}{import} \PY{n+nn}{pickle}
+         
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/Forest\PYZus{}100\PYZus{}125}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n+nb}{input}\PY{p}{:}    
+             \PY{n}{unpickler} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{Unpickler}\PY{p}{(}\PY{n+nb}{input}\PY{p}{)}
+             \PY{n}{myrfc} \PY{o}{=} \PY{n}{unpickler}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{pp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{n}{AM}\PY{o}{.}\PY{n}{NGs}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{900}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{900}\PY{p}{)}\PY{p}{:}
+             \PY{n}{hoi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{1800}\PY{p}{)}
+             \PY{n}{aoi} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{1800}\PY{p}{)}
+             \PY{n}{hoi}\PY{p}{[}\PY{n}{p}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+             \PY{n}{aoi}\PY{p}{[}\PY{n}{p}\PY{o}{+}\PY{l+m+mi}{900}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True} 
+             \PY{n}{pp}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{p}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{AM}\PY{o}{.}\PY{n}{compute\PYZus{}Corsi}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{NGs}\PY{p}{[}\PY{n}{p}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{home}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{pp}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{p}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{AM}\PY{o}{.}\PY{n}{compute\PYZus{}Corsi}\PY{p}{(}\PY{n}{AM}\PY{o}{.}\PY{n}{NGs}\PY{p}{[}\PY{n}{p}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{away}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{pp}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{p}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{myrfc}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{hoi}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{pp}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{p}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{n}{myrfc}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{aoi}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{pp}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{p}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{=} \PY{n}{myrfc}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}\PY{p}{[}\PY{n}{p}\PY{p}{]}
+             \PY{n}{pp}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{p}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{=} \PY{n}{myrfc}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}\PY{p}{[}\PY{n}{p}\PY{o}{+}\PY{l+m+mi}{900}\PY{p}{]}
+\end{Verbatim}
+
+    First, it is interesting that our model is more cautious than the naive
+Corsi statistic:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spread of Home Corsi stats: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spread of Home model prediction: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spread of Away Corsi stats: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spread of Away model prediction: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Spread of Home Corsi stats: 0.08621862299310906
+Spread of Home model prediction: 0.034498206900554794
+Spread of Away Corsi stats: 0.08436779026498906
+Spread of Away model prediction: 0.037975787323674605
+
+    \end{Verbatim}
+
+    However, if we restrict ourselves to the ``important'' players, this
+effect is smaller (but still non-negligible). The model is more
+confident for more important players, which is to be expected. But the
+spread is smaller for the raw stat, presumably because we are removing
+anomalous players.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{fi\PYZus{}thr} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{imp\PYZus{}pp} \PY{o}{=} \PY{n}{pp}\PY{p}{[}\PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{n}{fi\PYZus{}thr}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{n}{fi\PYZus{}thr}\PY{p}{)}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spread of Home Corsi stats: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{imp\PYZus{}pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spread of Home model prediction: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{imp\PYZus{}pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spread of Away Corsi stats: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{imp\PYZus{}pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spread of Away model prediction: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{imp\PYZus{}pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Spread of Home Corsi stats: 0.06497455257267885
+Spread of Home model prediction: 0.04477117529484894
+Spread of Away Corsi stats: 0.06453695878441502
+Spread of Away model prediction: 0.05042022331721116
+
+    \end{Verbatim}
+
+    We should not directly compare a player's raw Corsi number to his model
+prediction statistic, since these two quantities have different means
+and variances. We should first normalize these numbers by subtracting
+means and dividing by standard deviations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{pp\PYZus{}norm} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{mean\PYZus{}hc} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{mean\PYZus{}ac} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{mean\PYZus{}hrf} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{mean\PYZus{}arf} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{std\PYZus{}hc} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         \PY{n}{std\PYZus{}ac} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         \PY{n}{std\PYZus{}hrf} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         \PY{n}{std\PYZus{}arf} \PY{o}{=} \PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{mean\PYZus{}hc}\PY{p}{)}\PY{o}{/}\PY{n}{std\PYZus{}hc} 
+         \PY{n}{pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{mean\PYZus{}ac}\PY{p}{)}\PY{o}{/}\PY{n}{std\PYZus{}ac} 
+         \PY{n}{pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{mean\PYZus{}hrf}\PY{p}{)}\PY{o}{/}\PY{n}{std\PYZus{}hrf} 
+         \PY{n}{pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{pp}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{mean\PYZus{}arf}\PY{p}{)}\PY{o}{/}\PY{n}{std\PYZus{}arf}
+\end{Verbatim}
+
+    Now we come to the main objective of this report. We want to identify
+players who are better (or worse) than their raw Corsi number indicates.
+To accomplish this, we will extract players whose model prediction
+numbers differ the most from the corresponding Corsi data. Furthermore,
+we will only look at the ``important'' players to avoid spurious
+findings.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{imp\PYZus{}pp\PYZus{}norm} \PY{o}{=} \PY{n}{pp\PYZus{}norm}\PY{p}{[}\PY{p}{(}\PY{n}{pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{n}{fi\PYZus{}thr}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away importance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{n}{fi\PYZus{}thr}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n}{home\PYZus{}dev} \PY{o}{=} \PY{n}{imp\PYZus{}pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{imp\PYZus{}pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Home Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{away\PYZus{}dev} \PY{o}{=} \PY{n}{imp\PYZus{}pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away RF prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{imp\PYZus{}pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Away Corsi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    First, let us look for good players. We want players who are under-rated
+both home and away, so we demand that their Corsi-model difference is at
+least one standard deviation from the norm. This narrows the field down
+to five players:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{good\PYZus{}find} \PY{o}{=} \PY{p}{(}\PY{n}{away\PYZus{}dev} \PY{o}{\PYZgt{}} \PY{n}{away\PYZus{}dev}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{home\PYZus{}dev} \PY{o}{\PYZgt{}} \PY{n}{home\PYZus{}dev}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{imp\PYZus{}pp}\PY{p}{[}\PY{n}{good\PYZus{}find}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}                 Home Corsi  Away Corsi  Home RF prediction  \textbackslash{}
+         ALEX OVECHKIN     0.629032    0.602395            0.665825   
+         PAVEL DATSYUK     0.650000    0.622626            0.612959   
+         TOMAS HERTL       0.611201    0.556886            0.632630   
+         TOMAS TATAR       0.655615    0.605114            0.677919   
+         WAYNE SIMMONDS    0.638102    0.588738            0.618472   
+         
+                         Away RF prediction  Home importance  Away importance  
+         ALEX OVECHKIN             0.632223         0.001140         0.001046  
+         PAVEL DATSYUK             0.594240         0.000854         0.000966  
+         TOMAS HERTL               0.550497         0.000890         0.000835  
+         TOMAS TATAR               0.574092         0.000758         0.000857  
+         WAYNE SIMMONDS            0.567817         0.001003         0.000992  
+\end{Verbatim}
+        
+    Interestingly, all five players have already good Corsi numbers. Our
+model is not identifying players with mediocre Corsis that are better
+than those numbers appear. Rather, it is identifying players whose Corsi
+numbers are robust to a more nuanced model. It is telling us that we can
+be very confident in the raw Corsi stat.
+
+We do the same for bad players, and we get a set that is a little
+larger:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{bad\PYZus{}find} \PY{o}{=} \PY{p}{(}\PY{n}{away\PYZus{}dev} \PY{o}{\PYZlt{}} \PY{o}{\PYZhy{}}\PY{n}{away\PYZus{}dev}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{home\PYZus{}dev} \PY{o}{\PYZlt{}} \PY{o}{\PYZhy{}}\PY{n}{home\PYZus{}dev}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{imp\PYZus{}pp}\PY{p}{[}\PY{n}{bad\PYZus{}find}\PY{p}{]}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}                   Home Corsi  Away Corsi  Home RF prediction  \textbackslash{}
+         ANDY GREENE         0.391840    0.353275            0.413426   
+         CHRIS VANDEVELDE    0.410420    0.390743            0.447263   
+         GREGORY CAMPBELL    0.389034    0.310049            0.407542   
+         JAMIE BENN          0.579625    0.554815            0.488081   
+         JARRET STOLL        0.322464    0.308750            0.242315   
+         JOE PAVELSKI        0.646598    0.571617            0.495487   
+         LUKE GLENDENING     0.370331    0.339138            0.344779   
+         NICK SCHULTZ        0.412831    0.394309            0.375358   
+         PAUL GAUSTAD        0.345018    0.320312            0.273890   
+         
+                           Away RF prediction  Home importance  Away importance  
+         ANDY GREENE                 0.376806         0.000954         0.000870  
+         CHRIS VANDEVELDE            0.394437         0.000749         0.000708  
+         GREGORY CAMPBELL            0.103733         0.000673         0.001409  
+         JAMIE BENN                  0.443369         0.000944         0.001008  
+         JARRET STOLL                0.167522         0.001217         0.000909  
+         JOE PAVELSKI                0.451434         0.000934         0.000747  
+         LUKE GLENDENING             0.367095         0.000949         0.000990  
+         NICK SCHULTZ                0.392586         0.001194         0.001005  
+         PAUL GAUSTAD                0.245152         0.000679         0.000759  
+\end{Verbatim}
+        
+    As in the previous case, most of the players identified had bad raw
+numbers to begin with. So the model is selecting players whose badness
+is robust. However, two of the players had good Corsi numbers but
+relatively poor model numbers: Joe Pavelski and Jamie Benn.
+
+As a point of interest, let us compare the players mentioned in the
+introduction, Toews and Virtanen:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{JONATHAN TOEWS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Home Corsi            0.608661
+Away Corsi            0.498807
+Home RF prediction    0.352635
+Away RF prediction    0.028452
+Home importance       0.001081
+Away importance       0.001021
+Name: JONATHAN TOEWS, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{pp\PYZus{}norm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{JAKE VIRTANEN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Home Corsi            0.367090
+Away Corsi            0.600977
+Home RF prediction   -0.002721
+Away RF prediction    0.344945
+Home importance       0.000486
+Away importance       0.000457
+Name: JAKE VIRTANEN, dtype: float64
+
+    \end{Verbatim}
+
+    As expected, the model's estimation of Virtanen is lower than the Corsi
+indicates. On the other hand, the same applies to Toews! It appears the
+model is telling us that Jonathan Toews is not as good as his reputation
+would suggest.
+
+    \subsection{Appendix: summary of Python and data
+files}\label{appendix-summary-of-python-and-data-files}
+
+    The amount of Python code I used is too large to dump into this report,
+so I will list the files here with short descriptions. All code is
+available at the github repo:
+
+\begin{verbatim}
+http://www.github.com/darraghrooney/Springboard_Capstone/
+\end{verbatim}
+
+    \begin{verbatim}
+/scraping/
+
+    roster_scrape.py        
+    directory_build.py      
+    es_scrape.py            
+    salary_fill.py          
+    report_downloader.py        
+    attempt_scrape.py       
+
+/wrangling/
+
+    attempt_manager.py      
+    summary_manager.py      
+    data_split.py           
+
+/small_logistic/
+
+    feature_assemble.py     
+    small_logistic.py       
+
+/big_logistic/
+
+    big_logistic.py         
+
+/forests/
+
+    rafo.py          
+
+/plotting/
+
+    plotting.py          
+    log_plot.py          
+    big_log_plot.py          
+    rf_plot.py          
+\end{verbatim}
+
+    Additionally, there were a number of data files generated (some .csv,
+some .npz, one of them a pickle):
+
+    \begin{verbatim}
+/data/
+    Big_Roster.csv
+    Directory.csv
+    Summary.csv
+    Attempts.npz
+    Training.npz
+    CV.npz
+    TrainCorsis.csv
+    CVCorsis.csv
+    Forest_100_125
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

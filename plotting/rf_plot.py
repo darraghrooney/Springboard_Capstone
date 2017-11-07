@@ -30,6 +30,6 @@ def rf_plot(RFs):
     ax2.set_ylabel('Cross entropy, training set', fontsize = 10)
     ax3.set_ylabel('Prediction score, CV set', fontsize = 10)
     ax4.set_ylabel('Cross entropy, CV set', fontsize = 10)
-    fig.text(.5,0,'Number of tress', fontsize = 12)
+    fig.text(.5,0,'Number of trees', fontsize = 12)
 
     plt.show()
