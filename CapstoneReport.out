@@ -1,8 +1,0 @@
-\BOOKMARK [1][-]{section.1}{Introduction and Background}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Scraping and Wrangling}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{A first look at the data}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.3}{Basic models}{section.1}% 4
-\BOOKMARK [2][-]{subsection.1.4}{Logistic regression with 1800 features}{section.1}% 5
-\BOOKMARK [2][-]{subsection.1.5}{Random Forests}{section.1}% 6
-\BOOKMARK [2][-]{subsection.1.6}{Interpretation and Recommendations}{section.1}% 7
-\BOOKMARK [2][-]{subsection.1.7}{Appendix: summary of Python and data files}{section.1}% 8
